@@ -89,23 +89,27 @@ $projets = new WP_Query($args);
             <button type="reset" id="reset-filtres">Réinitialiser</button>
         </form>
 
-        <h3>Choisissez un pays</h3>
-        <div class="cp-mini-carte-group">
-            <?php
-            $pays_dispo = ['suisse', 'france', 'philippines'];
-            foreach ($pays_dispo as $p):
-                $active = ($p === $pays) ? ' active' : '';
-            ?>
-                <form method="get" class="cp-mini-carte-form">
-                    <input type="hidden" name="pays" value="<?= esc_attr($p) ?>">
-                    <button type="submit" class="cp-mini-carte-button <?= $active ?>">
-                        <div class="cp-mini-carte">
-                            <img src="<?= CP_URL . 'assets/svg/' . $p ?>.svg" alt="<?= esc_attr($p) ?>">
-                            <div class="cp-mini-carte-label"><?= ucfirst($p) ?></div>
-                        </div>
-                    </button>
-                </form>
-            <?php endforeach; ?>
+        <div>
+            <div class="cp-mini-carte-group">
+                <?php
+                $pays_dispo = ['philippines', 'france', 'suisse'];
+                foreach ($pays_dispo as $p):
+                    $active = ($p === $pays) ? ' active' : '';
+                ?>
+                    <form method="get" class="cp-mini-carte-form">
+                        <input type="hidden" name="pays" value="<?= esc_attr($p) ?>">
+                        <button type="submit" class="cp-mini-carte-button <?= $active ?>">
+                            <div class="cp-mini-carte">
+                                <div class="svg-wrapper-mini">
+                                    <img src="<?= CP_URL . 'assets/svg/' . $p ?>.svg" alt="<?= esc_attr($p) ?>">
+                                    <div class="mini-points" data-pays="<?= esc_attr($p) ?>"></div>
+                                </div>
+                                <div class="cp-mini-carte-label"><?= ucfirst($p) ?></div>
+                            </div>
+                        </button>
+                    </form>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
 

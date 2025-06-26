@@ -162,40 +162,25 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// function renderFilterButtons() {
-//   const filterContainer = document.getElementById("cp-filtres-icones");
-//   if (!filterContainer || !CP_MAP_AJAX.filters) return;
+function renderMiniCartePoints() {
+  document.querySelectorAll(".mini-points").forEach((container) => {
+    const pays = container.dataset.pays;
 
-//   Object.entries(CP_MAP_AJAX.filters).forEach(([taxonomy, terms]) => {
-//     const group = document.createElement("div");
-//     group.className = "filter-group";
+    fetch(`${CP_MAP_AJAX.ajax_url}?action=cp_get_projets&pays=${pays}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.success || !Array.isArray(data.data)) return;
 
-//     terms.forEach(term => {
-//       const button = document.createElement("button");
-//       button.className = "filter-button";
-//       button.dataset.taxonomy = taxonomy;
-//       button.dataset.slug = term.slug;
+        const { width, height } = container.getBoundingClientRect();
+        data.data.forEach((projet) => {
+          const point = document.createElement("div");
+          point.className = "point-projet-mini";
+          point.style.left = `${projet.x}%`;
+          point.style.top = `${projet.y}%`;
+          container.appendChild(point);
+        });
+      });
+  });
+}
 
-//       button.innerHTML = `
-//         <img src="${term.icon}" alt="${term.name}" title="${term.name}" />
-//       `;
-
-//       button.addEventListener("click", () => {
-//         document
-//           .querySelectorAll(`.filter-button[data-taxonomy="${taxonomy}"]`)
-//           .forEach(b => b.classList.remove("active"));
-
-//         button.classList.add("active");
-
-//         // recharge la carte avec le filtre appliqué
-//         const filters = { [taxonomy]: term.slug };
-//         loadPoints(currentPays, filters);
-//       });
-
-//       group.appendChild(button);
-//     });
-
-//     filterContainer.appendChild(group);
-//   });
-// }
-// document.addEventListener("DOMContentLoaded", renderFilterButtons);
+document.addEventListener("DOMContentLoaded", renderMiniCartePoints);

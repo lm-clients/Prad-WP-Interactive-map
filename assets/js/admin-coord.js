@@ -26,7 +26,7 @@ function initCarteClickListener() {
 
   if (projectNumberInput && pointPreview) {
     projectNumberInput.addEventListener("input", function () {
-      pointPreview?.innerHTML = `
+      pointPreview.innerHTML = `
         <div class="point-bulle">${this.value || ""}</div>
       `;
     });
@@ -50,9 +50,11 @@ function initCarteClickListener() {
       pointPreview.style.top = yPercent + "%";
 
       const currentNumber = projectNumberInput ? projectNumberInput.value : "";
-      pointPreview?.innerHTML = `
-        <div class="point-bulle">${currentNumber || "•"}</div>
-      `;
+      if (pointPreview) {
+        pointPreview.innerHTML = `
+          <div class="point-bulle">${currentNumber || "•"}</div>
+        `;
+      }
     }
   });
 }
@@ -91,6 +93,7 @@ function handlePaysChange() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM fully loaded and parsed");
   waitForElement("#acf-field_pays", handlePaysChange);
   initCarteClickListener();
 });
