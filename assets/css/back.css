@@ -1,0 +1,22 @@
+#carte-coord-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid #ccc;
+}
+#carte-coord-wrapper #point-preview {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10;
+}
+#carte-coord-wrapper #point-preview .point-bulle {
+  background-color: #DCAC53;
+  height: 24px;
+  width: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 24px;
+  font-size: 12px;
+  font-weight: bold;
+}/*# sourceMappingURL=back.css.map */

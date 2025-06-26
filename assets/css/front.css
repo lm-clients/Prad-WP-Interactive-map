@@ -1,0 +1,140 @@
+#page-projets {
+  background-color: #4B4C53;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-around;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+}
+#page-projets img {
+  filter: invert(1);
+}
+#page-projets #carte-svg {
+  filter: invert(1);
+  width: auto;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.cp-filtres-wrapper {
+  width: 40%;
+}
+.cp-filtres-wrapper h3 {
+  margin-bottom: 1rem;
+}
+.cp-filtres-wrapper .cp-mini-carte-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  align-items: baseline;
+}
+.cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form {
+  margin: 0;
+}
+.cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button {
+  all: unset;
+  cursor: pointer;
+}
+.cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button .cp-mini-carte {
+  width: 100%;
+  padding: 4px;
+  transition: border 0.3s;
+}
+.cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button .cp-mini-carte.active {
+  border: 3px solid #d00;
+}
+.cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button .cp-mini-carte img {
+  width: 100%;
+  height: auto;
+}
+.cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button .cp-mini-carte .cp-mini-carte-label {
+  text-align: center;
+  font-weight: bold;
+  padding-top: 5px;
+}
+.cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button:hover .cp-mini-carte {
+  border-color: #333;
+}
+
+.subcontainer {
+  position: relative;
+  width: 40%;
+}
+
+#carte-container {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+#carte-container .svg-wrapper {
+  position: relative;
+  height: 100%;
+  aspect-ratio: auto;
+}
+#carte-container .point-projet {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background-color: #DCAC53;
+  height: 24px;
+  width: 30px;
+  color: #fff;
+  text-align: center;
+  line-height: 24px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 5;
+}
+#carte-container #project-popup {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  max-width: 250px;
+  z-index: 10;
+}
+
+#cp-filtres-avances .cp-filter-label {
+  opacity: 0;
+}
+#cp-filtres-avances .cp-filter-icon {
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  margin: 5px;
+  position: relative;
+  opacity: 0.5;
+}
+#cp-filtres-avances .cp-filter-icon:hover {
+  opacity: 1;
+}
+#cp-filtres-avances .cp-filter-icon:hover .cp-filter-label {
+  opacity: 1;
+}
+#cp-filtres-avances .cp-filter-icon.active {
+  opacity: 1;
+}
+#cp-filtres-avances .cp-filter-icon.active .cp-filter-label {
+  opacity: 1;
+}
+#cp-filtres-avances .cp-filter-icon-img {
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin: auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+#cp-filtres-avances .cp-filter-icon input {
+  display: none;
+}/*# sourceMappingURL=front.css.map */
