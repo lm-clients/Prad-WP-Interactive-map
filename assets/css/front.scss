@@ -1,3 +1,8 @@
+* {
+  --prad-font-family: 'Prad - Regular', Helvetica, Arial, Lucida, sans-serif;
+}
+
+
 #page-projets {
   background-color: #4B4C53;
   padding-left: 5vw;
@@ -31,6 +36,7 @@
   padding-top: 10vh;
   padding-bottom: 10vh;
 
+
   h3 {
     margin-bottom: 1rem;
   }
@@ -44,20 +50,25 @@
 
     .cp-mini-carte-form {
       margin: 0;
-      width: 150px;
+      width: 100px;
 
       .cp-mini-carte-button {
         all: unset;
         cursor: pointer;
+        opacity: 0.4;
+
+        &.active {
+          opacity: 1;
+
+          .cp-mini-carte-label {
+            color: #dbac53;
+          }
+        }
 
         .cp-mini-carte {
           width: 100%;
           padding: 4px;
           transition: border 0.3s;
-
-          &.active {
-            border: 3px solid #d00;
-          }
 
           img {
             width: 100%;
@@ -68,6 +79,7 @@
             text-align: center;
             font-weight: bold;
             padding-top: 5px;
+            font-family: 'Prad - Regular', Helvetica, Arial, Lucida, sans-serif;
           }
         }
 
@@ -92,7 +104,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 
   .svg-wrapper {
     // width: 100%;
@@ -106,7 +117,7 @@
     transform: translate(-50%, -50%);
     background-color: #DCAC53;
     height: 24px;
-    width: 30px;
+    width: 32px;
     color: #fff;
     text-align: center;
     line-height: 24px;
@@ -115,43 +126,48 @@
     cursor: pointer;
     z-index: 5;
   }
-
-  #project-popup {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #fff;
-    border: 1px solid #ccc;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    max-width: 250px;
-    z-index: 10;
-  }
 }
 
 
 
 #cp-filtres-avances {
+  display: grid;
+  grid-template-areas:
+    "phase_projet phase_projet"
+    "secteur_projet categorie_projet"
+  ;
+  max-width: 500px;
+
+  >div[data-form-section="phase_projet"] {
+    grid-area: phase_projet;
+  }
+
+  >div[data-form-section="secteur_projet"] {
+    grid-area: secteur_projet;
+  }
+
+  >div[data-form-section="categorie_projet"] {
+    grid-area: categorie_projet;
+  }
+
+
   .cp-filter {
-
-    &-label {
-      opacity: 0;
-    }
-
     &-icon {
       display: inline-block;
       text-align: center;
       cursor: pointer;
-      margin: 5px;
       position: relative;
-      opacity: 0.5;
+
+      img {
+        opacity: 0.4;
+      }
 
       &:hover {
-        opacity: 1;
 
-        .cp-filter-label {
+        .cp-filter-label,
+        img {
           opacity: 1;
+          color: #fff;
         }
       }
 
@@ -159,8 +175,17 @@
       &.active {
         opacity: 1;
 
-        .cp-filter-label {
+        .cp-filter-label,
+        .see-all,
+        img {
           opacity: 1;
+          color: #fff;
+        }
+
+        .see-all {
+          .see-all-checkbox {
+            background: #fff;
+          }
         }
       }
 
@@ -213,4 +238,107 @@
   background-color: #DCAC53;
   height: 6px;
   width: 7.5px;
+}
+
+
+
+
+.see-all {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .see-all-checkbox {
+    width: 16px;
+    height: 12px;
+    background: transparent;
+
+    border: 1px solid #fff;
+
+  }
+}
+
+
+.cp-filter-group {
+  .list-item {
+    margin-left: 26px;
+  }
+}
+
+
+
+#project-popup {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  padding: 10px;
+  max-width: 400px;
+  min-width: 300px;
+  z-index: 10;
+
+  #popup {
+    &-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      >img {
+        max-height: 50px;
+        max-width: 50px;
+        object-fit: contain;
+      }
+    }
+
+    &-number {
+      font-weight: bold;
+      margin-bottom: 5px;
+      background-color: #DCAC53;
+      height: 24px;
+      width: 32px;
+      text-align: center;
+      line-height: 24px;
+    }
+
+    &-title {
+      font-weight: bold;
+      margin-top: 14px;
+      margin-bottom: 10px;
+      color: #fff;
+      font-family: var(--prad-font-family);
+      font-size: 1.75rem;
+    }
+
+    &-excerpt {
+      margin-bottom: 10px;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    &-taxonomies {
+      display: flex;
+      gap: 18px;
+
+
+      >div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .li-bullet {
+          background-color: #fff;
+          height: 7px;
+          width: 8.5px;
+        }
+
+        .metadata-label {
+          font-weight: bold;
+          color: #fff;
+          font-family: var(--prad-font-family);
+        }
+      }
+
+    }
+  }
 }

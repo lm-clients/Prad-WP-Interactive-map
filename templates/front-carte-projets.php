@@ -34,7 +34,7 @@ $projets = new WP_Query($args);
     <div class="cp-filtres-wrapper">
         <form id="cp-filtres-avances">
             <?php
-            $taxonomies = ['phase_projet'];
+            $taxonomies = ['phase_projet', 'secteur_projet', 'categorie_projet'];
             foreach ($taxonomies as $taxo) :
                 // Récupère tous les termes
                 $all_terms = get_terms([
@@ -63,30 +63,74 @@ $projets = new WP_Query($args);
 
                 // Fusionne dans l’ordre souhaité
                 $terms = array_merge($terms_with_order, $terms_without_order);
-                if (!empty($terms)) : ?>
-                    <fieldset class="cp-filter-group" data-taxonomy="<?= esc_attr($taxo) ?>">
-                        <legend><?= esc_html(get_taxonomy($taxo)->label) ?></legend>
-                        <label class="cp-filter-icon">
-                            <input type="radio" name="<?= esc_attr($taxo) ?>" value="" checked>
-                            <span>Tous</span>
-                        </label>
-                        <?php foreach ($terms as $term) :
-                            $icon = get_term_meta($term->term_id, 'icone', true);
+            ?>
+                <div data-form-section="<?= esc_attr($taxo) ?>">
+                    <label class="cp-filter-icon active">
+                        <input type="radio" name="<?= esc_attr($taxo) ?>" value="" checked>
+
+                        <?php
+                        $taxonomy_name = esc_html(get_taxonomy($taxo)->name);
+
+                        if ($taxonomy_name) {
+                            echo '<div class="see-all">';
+                            echo '<div class="see-all-checkbox"></div>';
+
+                            if ($taxonomy_name === 'phase_projet') {
+                                echo '<span>Toutes les phases</span>';
+                            } elseif ($taxonomy_name === 'secteur_projet') {
+                                echo '<span>Tous les secteurs</span>';
+                            } elseif ($taxonomy_name === 'categorie_projet') {
+                                echo '<span>Toutes les catégories</span>';
+                            } elseif ($taxonomy_name === 'type_projet') {
+                                echo '<span>Tous les types</span>';
+                            } else {
+                                echo '<span>' . $taxonomy_name . '</span>';
+                            }
+                            echo '</div>';
+                        }
+
                         ?>
-                            <label class="cp-filter-icon">
-                                <input type="radio" name="<?= esc_attr($taxo) ?>" value="<?= esc_attr($term->slug) ?>">
-                                <?php if ($icon): ?>
-                                    <img src="<?= esc_url($icon) ?>" alt="<?= esc_attr($term->name) ?>" class="cp-filter-icon-img">
-                                <?php endif; ?>
-                                <span class="cp-filter-label"><?= esc_html($term->name) ?></span>
-                            </label>
-                        <?php endforeach; ?>
-                    </fieldset>
-            <?php endif;
+
+
+                    </label>
+
+                    <?php
+
+                    if (!empty($terms)) : ?>
+                        <fieldset class="cp-filter-group" data-taxonomy="<?= esc_attr($taxo) ?>">
+                            <?php foreach ($terms as $term) :
+                                $icon = get_term_meta($term->term_id, 'icone', true);
+
+                                if ($taxonomy_name === 'phase_projet') {
+                            ?>
+                                    <label class="cp-filter-icon">
+                                        <input type="radio" name="<?= esc_attr($taxo) ?>" value="<?= esc_attr($term->slug) ?>">
+                                        <?php if ($icon): ?>
+                                            <img src="<?= esc_url($icon) ?>" alt="<?= esc_attr($term->name) ?>" class="cp-filter-icon-img">
+                                        <?php endif; ?>
+                                        <span class="cp-filter-label"><?= esc_html($term->name) ?></span>
+                                    </label>
+                                <?php } else { ?>
+                                    <label class="cp-filter-icon list-item">
+                                        <div class="see-all">
+                                            <div class="see-all-checkbox"></div>
+                                            <input type="radio" name="<?= esc_attr($taxo) ?>" value="<?= esc_attr($term->slug) ?>">
+                                            <?php if ($icon): ?>
+                                                <img src="<?= esc_url($icon) ?>" alt="<?= esc_attr($term->name) ?>" class="cp-filter-icon-img">
+                                            <?php endif; ?>
+                                            <span class="cp-filter-label"><?= esc_html($term->name) ?></span>
+                                        </div>
+                                    </label>
+                                <?php } ?>
+                            <?php endforeach; ?>
+                        </fieldset>
+                    <?php endif; ?>
+                </div>
+            <?php
             endforeach;
             ?>
-            <button type="submit" style="display:none;">Filtrer</button>
-            <button type="reset" id="reset-filtres">Réinitialiser</button>
+            <!-- <button type="submit" style="display:none;">Filtrer</button> -->
+            <!-- <button type="reset" id="reset-filtres">Réinitialiser</button> -->
         </form>
 
         <div>
@@ -98,7 +142,7 @@ $projets = new WP_Query($args);
                 ?>
                     <form method="get" class="cp-mini-carte-form">
                         <input type="hidden" name="pays" value="<?= esc_attr($p) ?>">
-                        <button type="submit" class="cp-mini-carte-button <?= $active ?>">
+                        <button data-pays="<?= esc_attr($p) ?>" type="submit" class="cp-mini-carte-button <?= $active ?>">
                             <div class="cp-mini-carte">
                                 <div class="svg-wrapper-mini">
                                     <img src="<?= CP_URL . 'assets/svg/' . $p ?>.svg" alt="<?= esc_attr($p) ?>">
@@ -122,76 +166,31 @@ $projets = new WP_Query($args);
                 <object id="carte-svg" type="image/svg+xml" data="<?= esc_url($svg_url) ?>"></object>
             </div>
 
-            <?php if ($projets->have_posts()) : ?>
-                <?php while ($projets->have_posts()) : $projets->the_post();
-                    $x = get_field('x_position');
-                    $y = get_field('y_position');
-                    $num = get_field('numero_projet');
-                    $title = get_the_title();
-                    $excerpt = get_the_excerpt();
-                    $permalink = get_permalink();
-                ?>
-                    <div class="point-projet" style="
-                    top:<?= esc_attr($y) ?>%;
-                    left:<?= esc_attr($x) ?>%;"
-                        data-title="<?= esc_attr($title) ?>"
-                        data-excerpt="<?= esc_attr($excerpt) ?>"
-                        data-link="<?= esc_url($permalink) ?>">
-                        <?= esc_html($num) ?>
-                    </div>
-
-                <?php endwhile; ?>
-                <?php wp_reset_postdata(); ?>
-            <?php endif; ?>
-
             <div id="project-popup">
 
                 <button id="popup-close" style="position:absolute; top:5px; right:5px; border:none; background:none; font-size:16px; cursor:pointer;">×</button>
 
-                <div id="popup-title" style="font-weight:bold;"></div>
-                <div id="popup-excerpt" style="margin:5px 0;"></div>
+                <div id="popup-icon">
+                    <img src="" alt="">
+                </div>
+
+                <div id="popup-number"></div>
+                <div id="popup-title"></div>
+                <div id="popup-excerpt"></div>
+                
+                <div id="popup-taxonomies">
+                    <div id="popup-phase"></div>
+                    <div id="popup-secteur"></div>
+                    <div id="popup-categorie"></div>
+                </div>
+
+
                 <a id="popup-link" href="#" style="color:#d00; font-weight:bold;">Voir le projet</a>
             </div>
         </div>
 
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const popup = document.getElementById('project-popup');
-        const title = document.getElementById('popup-title');
-        const excerpt = document.getElementById('popup-excerpt');
-        const link = document.getElementById('popup-link');
-        const closeBtn = document.getElementById('popup-close');
-
-        // Affiche la popup au clic sur un point
-        document.querySelectorAll('.point-projet').forEach(point => {
-            point.addEventListener('click', (e) => {
-                e.stopPropagation(); // Évite la fermeture immédiate
-                title.textContent = point.dataset.title;
-                excerpt.textContent = point.dataset.excerpt;
-                link.href = point.dataset.link;
-                popup.style.display = 'block';
-            });
-        });
-
-        // Ferme la popup au clic en dehors
-        document.addEventListener('click', (e) => {
-            const isPoint = e.target.closest('.point-projet');
-            const isPopup = e.target.closest('#project-popup');
-            if (!isPoint && !isPopup) {
-                popup.style.display = 'none';
-            }
-        });
-
-        // Ferme la popup via la croix
-        closeBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            popup.style.display = 'none';
-        });
-    });
-</script>
 
 
 

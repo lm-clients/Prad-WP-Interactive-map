@@ -14,7 +14,6 @@ define('CP_URL', plugin_dir_url(__FILE__));
 require_once CP_DIR . 'includes/post-type.php';
 require_once CP_DIR . 'includes/taxonomies.php';
 require_once CP_DIR . 'includes/acf-fields.php';
-require_once CP_DIR . 'includes/admin-coord-picker.php';
 
 
 //Remove Divi Projects Post Type
@@ -142,6 +141,14 @@ function cp_get_projets()
             'x' => get_field('x_position') ?: 0,
             'y' => get_field('y_position') ?: 0,
             'numero' => get_field('numero_projet') ?: '',
+
+            'popup_excerpt' => get_field('popup_excerpt') ?: '',
+
+            'type' => get_the_terms(get_the_ID(), 'type_projet'),
+            'phase_name' => get_the_terms(get_the_ID(), 'phase_projet') ? get_the_terms(get_the_ID(), 'phase_projet')[0]->name : '',
+            'phase_icon' => get_term_meta(get_the_terms(get_the_ID(), 'phase_projet')[0]->term_id, 'icone', true),
+            'secteur_name' => get_the_terms(get_the_ID(), 'secteur_projet') ? get_the_terms(get_the_ID(), 'secteur_projet')[0]->name : '',
+            'categorie_name' => get_the_terms(get_the_ID(), 'categorie_projet') ? get_the_terms(get_the_ID(), 'categorie_projet')[0]->name : '',
         ];
     }
     wp_reset_postdata();
@@ -263,7 +270,7 @@ function cp_get_filter_icons()
     foreach ($taxonomies as $tax) {
         // Récupère tous les termes
         $all_terms = get_terms([
-            'taxonomy' => $taxo,
+            'taxonomy' => $tax,
             'hide_empty' => false,
         ]);
 

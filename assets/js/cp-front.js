@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(`${CP_MAP_AJAX.ajax_url}?${query.toString()}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log("Chargement des projets pour", pays, data);
         if (!data.success || !Array.isArray(data.data))
           throw new Error("Erreur AJAX");
         document.querySelectorAll(".point-projet").forEach((p) => p.remove());
@@ -43,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
           point.dataset.title = projet.title;
           point.dataset.excerpt = projet.excerpt;
           point.dataset.link = projet.link;
+
           container.appendChild(point);
 
           point.addEventListener("click", () => {
@@ -69,14 +71,17 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       // cp-mini-carte add or remove active class on click
-      const activeButton = form.querySelector(".cp-mini-carte-button.active");
-      if (activeButton) {
-        activeButton.classList.remove("active");
-      } else {
-        form.querySelector(".cp-mini-carte-button").classList.add("active");
-      }
+      // const activeButton = form.querySelector(".cp-mini-carte-button.active");
+      // if (activeButton) {
+      //   activeButton.classList.remove("active");
+      // } else {
+      //   form.querySelector(".cp-mini-carte-button").classList.add("active");
+      // }
 
       const pays = form.querySelector('[name="pays"]').value;
+
+      // Active le bouton de la mini-carte
+      activeMiniCarteButton(pays);
 
       // Mise à jour URL
       history.replaceState(null, "", "?pays=" + pays);
@@ -103,14 +108,76 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  function activeMiniCarteButton(pays) {
+    document.querySelectorAll(".cp-mini-carte-button").forEach((btn) => {
+      btn.classList.remove("active");
+      console.log("Removing active class from button:", btn);
+    });
+    const activeButton = document.querySelector(
+      `.cp-mini-carte-button[data-pays="${pays}"]`
+    );
+    console.log("Activating button for pays:", pays, activeButton);
+    if (activeButton) {
+      activeButton.classList.add("active");
+    }
+  }
+
   function showPopup(projet) {
     const popup = document.getElementById("project-popup");
     if (!popup) return;
 
+    // Fill in basic content
+    popup.querySelector("#popup-number").textContent = projet.numero || "•";
     popup.querySelector("#popup-title").textContent = projet.title;
-    popup.querySelector("#popup-excerpt").textContent = projet.excerpt;
-    popup.querySelector("#popup-link").href = projet.permalink;
+    popup.querySelector("#popup-excerpt").textContent = projet.popup_excerpt || "";
+    popup.querySelector("#popup-link").href = projet.link;
+    const icon = popup.querySelector("#popup-icon img");
+
+    console.log("Showing popup for projet:", projet);
+
+    // Set icon if available
+    if (projet.phase_icon) {
+      icon.src = projet.phase_icon;
+      icon.alt = projet.phase_name || "Phase Icon";
+    } else {
+      icon.src = ""; // Clear icon if not available
+      icon.alt = "";
+    }
+
+    // Clear previous metadata containers (phase, type, category)
+    ["popup-phase", "popup-secteur", "popup-category"].forEach((id) => {
+      const container = popup.querySelector(`#${id}`);
+      if (container) container.innerHTML = "";
+    });
+
+    // Add metadata points
+    addMetadataPoint(popup.querySelector("#popup-phase"), projet.phase_name);
+    addMetadataPoint(
+      popup.querySelector("#popup-secteur"),
+      projet.secteur_name
+    );
+    addMetadataPoint(
+      popup.querySelector("#popup-category"),
+      projet.category_name
+    );
+
+    // Show popup
     popup.style.display = "block";
+  }
+
+  // Helper: Create a metadata point if data exists
+  function addMetadataPoint(container, label) {
+    if (!container || !label) return;
+
+    const pradPoint = document.createElement("div");
+    pradPoint.className = "li-bullet";
+
+    const span = document.createElement("span");
+    span.className = "metadata-label";
+    span.textContent = label;
+
+    container.appendChild(pradPoint);
+    container.appendChild(span);
   }
 });
 
@@ -184,3 +251,23 @@ function renderMiniCartePoints() {
 }
 
 document.addEventListener("DOMContentLoaded", renderMiniCartePoints);
+
+document.addEventListener("DOMContentLoaded", function () {
+  const popup = document.getElementById("project-popup");
+  const closeBtn = document.getElementById("popup-close");
+
+  // Ferme la popup au clic en dehors
+  document.addEventListener("click", (e) => {
+    const isPoint = e.target.closest(".point-projet");
+    const isPopup = e.target.closest("#project-popup");
+    if (!isPoint && !isPopup) {
+      popup.style.display = "none";
+    }
+  });
+
+  // Ferme la popup via la croix
+  closeBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    popup.style.display = "none";
+  });
+});
