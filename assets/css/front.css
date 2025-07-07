@@ -120,6 +120,77 @@
   border: 1px solid #fff;
 }
 
+#toggle-filtres {
+  width: 100%;
+  border-top: solid 1px;
+  border-bottom: solid 1px;
+  border-left: none;
+  border-right: none;
+  padding: 10px 0;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  background: none;
+  color: var(--color-text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  gap: 44px;
+}
+#toggle-filtres .cp-dropdown-icon-container {
+  width: 34px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+#toggle-filtres .cp-dropdown-icon-container .cp-dropdown-icon {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+  width: 34px;
+}
+#toggle-filtres .cp-dropdown-icon-container .cp-dropdown-icon:before {
+  content: "";
+  width: 32px;
+  height: 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-primary);
+  z-index: -1;
+}
+#toggle-filtres[aria-expanded=true] .cp-dropdown-icon {
+  width: 24px;
+}
+#toggle-filtres[aria-expanded=true] .cp-dropdown-icon > span {
+  position: relative;
+  top: -2px;
+}
+#toggle-filtres[aria-expanded=true] .cp-dropdown-icon:before {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.cp-filtres-avances {
+  display: none;
+  padding-top: 33px;
+}
+.cp-filtres-avances.open {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  #toggle-filtres {
+    display: flex;
+  }
+  #cp-filtres-avances-container {
+    display: none;
+  }
+  #cp-filtres-avances-container.open {
+    display: block;
+    margin-top: 1rem;
+  }
+}
 .cp-map-center {
   flex: 2 1 500px;
   position: relative;
@@ -167,6 +238,27 @@
   #carte-container .point-projet {
     font-size: clamp(14px, 2vw, 16px);
   }
+}
+
+.svg-wrapper-mini {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+}
+.svg-wrapper-mini .mini-points {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.svg-wrapper-mini .mini-points .point-projet-mini {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background-color: #DCAC53;
+  height: 6px;
+  width: 7.5px;
 }
 
 #project-popup {
