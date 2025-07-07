@@ -1,0 +1,121 @@
+.cp-filtres-wrapper {
+  height: 90vh;
+  @include flex-center(column, 2rem);
+  justify-content: space-between;
+  padding: 10vh 0;
+
+  h3 {
+    margin-bottom: 1rem;
+  }
+
+  .cp-mini-carte-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: fit-content;
+
+    .cp-mini-carte-form {
+      width: 100px;
+      margin: 0;
+
+      .cp-mini-carte-button {
+        all: unset;
+        cursor: pointer;
+        opacity: var(--opacity-inactive);
+        @include transition(opacity);
+
+        &.active {
+          opacity: 1;
+
+          .cp-mini-carte-label {
+            color: var(--color-primary);
+          }
+        }
+
+        .cp-mini-carte {
+          width: 100%;
+          padding: 4px;
+
+          img {
+            width: 100%;
+            height: auto;
+          }
+
+          .cp-mini-carte-label {
+            text-align: center;
+            font-weight: bold;
+            padding-top: 5px;
+          }
+        }
+
+        &:hover .cp-mini-carte {
+          border-color: var(--color-border);
+        }
+      }
+    }
+  }
+}
+
+#cp-filtres-avances {
+  display: grid;
+  grid-template-areas:
+    "phase_projet phase_projet"
+    "secteur_projet categorie_projet";
+  max-width: 500px;
+
+  > div[data-form-section] {
+    &[data-form-section="phase_projet"] {
+      grid-area: phase_projet;
+    }
+    &[data-form-section="secteur_projet"] {
+      grid-area: secteur_projet;
+    }
+    &[data-form-section="categorie_projet"] {
+      grid-area: categorie_projet;
+    }
+  }
+
+  .cp-filter-icon {
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+
+    img {
+      opacity: var(--opacity-inactive);
+      @include transition(opacity);
+    }
+
+    &:hover {
+      img,
+      .cp-filter-label {
+        opacity: 1;
+        color: var(--color-text);
+      }
+    }
+
+    &.active {
+      img,
+      .cp-filter-label,
+      .see-all {
+        opacity: 1;
+        color: var(--color-text);
+      }
+
+      .see-all-checkbox {
+        background: var(--color-text);
+      }
+    }
+
+    &-img {
+      @include square(40px);
+      display: block;
+      margin: auto;
+      object-fit: contain;
+    }
+
+    input {
+      display: none;
+    }
+  }
+}

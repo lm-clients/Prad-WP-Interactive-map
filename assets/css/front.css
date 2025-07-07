@@ -1,126 +1,63 @@
-* {
-  --prad-font-family: "Prad - Regular", Helvetica, Arial, Lucida, sans-serif;
-}
-
-#page-projets {
-  background-color: #4B4C53;
-  padding-left: 5vw;
-  padding-top: 7vh;
-  padding-bottom: 7vh;
-  height: 90vh;
-  position: relative;
-}
-
-#page-projets img {
-  filter: invert(1);
-}
-
-#page-projets #carte-svg {
-  filter: invert(1);
-  width: auto;
-  height: 100%;
-  -o-object-fit: contain;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
+:root {
+  --font-family: "Prad - Regular", Helvetica, Arial, Lucida, sans-serif;
+  --color-primary: #DCAC53;
+  --color-bg: #4B4C53;
+  --color-text: #fff;
+  --color-border: #333;
+  --opacity-inactive: 0.4;
 }
 
 .cp-filtres-wrapper {
   height: 90vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
   justify-content: space-between;
-  padding-top: 10vh;
-  padding-bottom: 10vh;
+  padding: 10vh 0;
 }
-
 .cp-filtres-wrapper h3 {
   margin-bottom: 1rem;
 }
-
 .cp-filtres-wrapper .cp-mini-carte-group {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  align-items: baseline;
   width: -moz-fit-content;
   width: fit-content;
 }
-
 .cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form {
-  margin: 0;
   width: 100px;
+  margin: 0;
 }
-
 .cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button {
   all: unset;
   cursor: pointer;
-  opacity: 0.4;
+  opacity: var(--opacity-inactive);
+  transition: opacity 0.3s ease;
 }
-
 .cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button.active {
   opacity: 1;
 }
-
 .cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button.active .cp-mini-carte-label {
-  color: #dbac53;
+  color: var(--color-primary);
 }
-
 .cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button .cp-mini-carte {
   width: 100%;
   padding: 4px;
-  transition: border 0.3s;
 }
-
 .cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button .cp-mini-carte img {
   width: 100%;
   height: auto;
 }
-
 .cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button .cp-mini-carte .cp-mini-carte-label {
   text-align: center;
   font-weight: bold;
   padding-top: 5px;
-  font-family: "Prad - Regular", Helvetica, Arial, Lucida, sans-serif;
 }
-
 .cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button:hover .cp-mini-carte {
-  border-color: #333;
-}
-
-.subcontainer {
-  position: absolute;
-  top: 10vh;
-  left: 40vw;
-  bottom: 10vh;
-}
-
-#carte-container {
-  position: relative;
-  height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#carte-container .svg-wrapper {
-  height: 100%;
-  aspect-ratio: auto;
-}
-
-#carte-container .point-projet {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  background-color: #DCAC53;
-  height: 24px;
-  width: 32px;
-  color: #fff;
-  text-align: center;
-  line-height: 24px;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 5;
+  border-color: var(--color-border);
 }
 
 #cp-filtres-avances {
@@ -128,106 +65,83 @@
   grid-template-areas: "phase_projet phase_projet" "secteur_projet categorie_projet";
   max-width: 500px;
 }
-
-#cp-filtres-avances>div[data-form-section=phase_projet] {
+#cp-filtres-avances > div[data-form-section][data-form-section=phase_projet] {
   grid-area: phase_projet;
 }
-
-#cp-filtres-avances>div[data-form-section=secteur_projet] {
+#cp-filtres-avances > div[data-form-section][data-form-section=secteur_projet] {
   grid-area: secteur_projet;
 }
-
-#cp-filtres-avances>div[data-form-section=categorie_projet] {
+#cp-filtres-avances > div[data-form-section][data-form-section=categorie_projet] {
   grid-area: categorie_projet;
 }
-
 #cp-filtres-avances .cp-filter-icon {
   display: inline-block;
   text-align: center;
   cursor: pointer;
   position: relative;
 }
-
 #cp-filtres-avances .cp-filter-icon img {
-  opacity: 0.4;
+  opacity: var(--opacity-inactive);
+  transition: opacity 0.3s ease;
 }
-
-#cp-filtres-avances .cp-filter-icon:hover .cp-filter-label,
-#cp-filtres-avances .cp-filter-icon:hover img {
+#cp-filtres-avances .cp-filter-icon:hover img,
+#cp-filtres-avances .cp-filter-icon:hover .cp-filter-label {
   opacity: 1;
-  color: #fff;
+  color: var(--color-text);
 }
-
-#cp-filtres-avances .cp-filter-icon.active {
-  opacity: 1;
-}
-
+#cp-filtres-avances .cp-filter-icon.active img,
 #cp-filtres-avances .cp-filter-icon.active .cp-filter-label,
-#cp-filtres-avances .cp-filter-icon.active .see-all,
-#cp-filtres-avances .cp-filter-icon.active img {
+#cp-filtres-avances .cp-filter-icon.active .see-all {
   opacity: 1;
-  color: #fff;
+  color: var(--color-text);
 }
-
-#cp-filtres-avances .cp-filter-icon.active .see-all .see-all-checkbox {
-  background: #fff;
+#cp-filtres-avances .cp-filter-icon.active .see-all-checkbox {
+  background: var(--color-text);
 }
-
 #cp-filtres-avances .cp-filter-icon-img {
   width: 40px;
   height: 40px;
   display: block;
   margin: auto;
   -o-object-fit: contain;
-  object-fit: contain;
+     object-fit: contain;
 }
-
 #cp-filtres-avances .cp-filter-icon input {
   display: none;
 }
 
-.svg-wrapper-mini {
-  position: relative;
-  width: 100%;
-}
-
-.svg-wrapper-mini object {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.mini-points {
+.subcontainer {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 10vh;
+  right: 25vw;
+  bottom: 10vh;
+}
+
+#carte-container {
+  position: relative;
+  height: 60vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+#carte-container .svg-wrapper {
   height: 100%;
 }
-
-.mini-points .point-projet-mini {
+#carte-container .point-projet {
   position: absolute;
   transform: translate(-50%, -50%);
-  background-color: #DCAC53;
-  height: 6px;
-  width: 7.5px;
-}
-
-.see-all {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.see-all .see-all-checkbox {
-  width: 16px;
-  height: 12px;
-  background: transparent;
-  border: 1px solid #fff;
-}
-
-.cp-filter-group .list-item {
-  margin-left: 26px;
+  background-color: var(--color-primary);
+  width: 24px;
+  height: 24px;
+  color: var(--color-text);
+  text-align: center;
+  line-height: 24px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 5;
 }
 
 #project-popup {
@@ -241,66 +155,76 @@
   min-width: 300px;
   z-index: 10;
 }
-
 #project-popup #popup-icon {
   position: absolute;
   top: 0;
   right: 0;
 }
-
-#project-popup #popup-icon>img {
+#project-popup #popup-icon img {
   max-height: 50px;
   max-width: 50px;
   -o-object-fit: contain;
-  object-fit: contain;
+     object-fit: contain;
 }
-
 #project-popup #popup-number {
   font-weight: bold;
   margin-bottom: 5px;
-  background-color: #DCAC53;
-  height: 24px;
+  background-color: var(--color-primary);
   width: 32px;
+  height: 32px;
   text-align: center;
   line-height: 24px;
 }
-
 #project-popup #popup-title {
   font-weight: bold;
-  margin-top: 14px;
-  margin-bottom: 10px;
-  color: #fff;
-  font-family: var(--prad-font-family);
+  margin: 14px 0 10px;
+  color: var(--color-text);
   font-size: 1.75rem;
 }
-
 #project-popup #popup-excerpt {
   margin-bottom: 10px;
-  color: #fff;
+  color: var(--color-text);
   font-size: 1rem;
 }
-
 #project-popup #popup-taxonomies {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   gap: 18px;
 }
-
-#project-popup #popup-taxonomies>div {
+#project-popup #popup-taxonomies > div {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
-
-#project-popup #popup-taxonomies>div .li-bullet {
-  background-color: #fff;
-  height: 7px;
+#project-popup #popup-taxonomies > div .li-bullet {
+  background-color: var(--color-text);
   width: 8.5px;
+  height: 8.5px;
 }
-
-#project-popup #popup-taxonomies>div .metadata-label {
+#project-popup #popup-taxonomies > div .metadata-label {
   font-weight: bold;
-  color: #fff;
-  font-family: var(--prad-font-family);
+  color: var(--color-text);
 }
 
-/*# sourceMappingURL=front.css.map */
+#page-projets {
+  background-color: var(--color-bg);
+  padding: 7vh 0 7vh 5vw;
+  height: 90vh;
+  position: relative;
+}
+#page-projets img,
+#page-projets #carte-svg {
+  filter: invert(1);
+}
+#page-projets #carte-svg {
+  width: auto;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}/*# sourceMappingURL=front.css.map */

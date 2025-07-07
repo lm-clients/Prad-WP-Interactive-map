@@ -1,0 +1,30 @@
+.subcontainer {
+  position: absolute;
+  top: 10vh;
+  right: 25vw;
+  bottom: 10vh;
+}
+
+#carte-container {
+  position: relative;
+  height: 60vh;
+  @include flex-center();
+
+  .svg-wrapper {
+    height: 100%;
+  }
+
+  .point-projet {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: var(--color-primary);
+    @include square(24px);
+    color: var(--color-text);
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 5;
+  }
+}
