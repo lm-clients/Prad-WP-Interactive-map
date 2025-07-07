@@ -1,18 +1,24 @@
 .cp-filtres-wrapper {
-  height: 90vh;
-  @include flex-center(column, 2rem);
+  flex: 1 1 300px; // Largeur minimum sur petit écran
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  padding: 10vh 0;
 
   h3 {
     margin-bottom: 1rem;
   }
 
+  .cp-filter-group {
+    .list-item {
+      margin-left: 26px;
+    }
+  }
+
   .cp-mini-carte-group {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
     gap: 10px;
-    width: fit-content;
+    align-items: baseline;
 
     .cp-mini-carte-form {
       width: 100px;
@@ -61,15 +67,16 @@
   grid-template-areas:
     "phase_projet phase_projet"
     "secteur_projet categorie_projet";
-  max-width: 500px;
 
-  > div[data-form-section] {
+  >div[data-form-section] {
     &[data-form-section="phase_projet"] {
       grid-area: phase_projet;
     }
+
     &[data-form-section="secteur_projet"] {
       grid-area: secteur_projet;
     }
+
     &[data-form-section="categorie_projet"] {
       grid-area: categorie_projet;
     }
@@ -87,6 +94,7 @@
     }
 
     &:hover {
+
       img,
       .cp-filter-label {
         opacity: 1;
@@ -95,6 +103,7 @@
     }
 
     &.active {
+
       img,
       .cp-filter-label,
       .see-all {
@@ -117,5 +126,20 @@
     input {
       display: none;
     }
+  }
+}
+
+.see-all {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .see-all-checkbox {
+    width: 16px;
+    height: 12px;
+    background: transparent;
+
+    border: 1px solid #fff;
+
   }
 }

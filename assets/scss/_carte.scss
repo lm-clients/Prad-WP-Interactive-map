@@ -1,30 +1,49 @@
-.subcontainer {
-  position: absolute;
-  top: 10vh;
-  right: 25vw;
-  bottom: 10vh;
+.cp-map-center {
+  flex: 2 1 500px; // grand écran : prend plus de place
+  position: relative;
+  min-height: 50vh;
+  align-content: center;
 }
 
 #carte-container {
   position: relative;
-  height: 60vh;
-  @include flex-center();
+  width: 100%;
+  padding-top: 75%;
+  /* ratio fixe pour responsive */
+  background: transparent;
 
   .svg-wrapper {
+    position: absolute;
+    inset: 0;
+    width: fit-content;
+    margin: auto;
+  }
+
+  object#carte-svg {
+    width: 100%;
     height: 100%;
+    display: block;
   }
 
   .point-projet {
     position: absolute;
     transform: translate(-50%, -50%);
     background-color: var(--color-primary);
-    @include square(24px);
+    /* proportionnel à la largeur de la carte */
+    aspect-ratio: 4 / 3;
+    /* conserve la forme */
     color: var(--color-text);
     text-align: center;
-    line-height: 24px;
-    font-size: 12px;
+    font-size: clamp(10px, 1vw, 14px);
     font-weight: bold;
     cursor: pointer;
     z-index: 5;
+    @include rectangle(32px);
+    line-height: 24px;
+
+    // Ajustement pour tactile
+    @media (hover: none) {
+      font-size: clamp(14px, 2vw, 16px);
+    }
   }
 }

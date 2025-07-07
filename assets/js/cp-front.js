@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("carte-container");
+  // const container = document.getElementById("carte-container");
+  const container = document.querySelector(".svg-wrapper");
   const carte = document.getElementById("carte-svg");
 
   if (!container || !carte || typeof CP_MAP_AJAX === "undefined") return;

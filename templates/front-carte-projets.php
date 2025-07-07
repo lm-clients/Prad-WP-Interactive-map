@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template Name: Page Projets
  */
@@ -66,20 +67,20 @@ $projets = new WP_Query([
                                 $icon = get_term_meta($term->term_id, 'icone', true);
                                 $term_name = esc_html($term->name);
                                 $term_slug = esc_attr($term->slug);
-                                ?>
+                            ?>
                                 <label class="cp-filter-icon<?= $taxo !== 'phase_projet' ? ' list-item' : '' ?>">
                                     <?php if ($taxo !== 'phase_projet'): ?>
                                         <div class="see-all">
                                             <div class="see-all-checkbox"></div>
-                                    <?php endif; ?>
+                                        <?php endif; ?>
 
-                                    <input type="radio" name="<?= esc_attr($taxo) ?>" value="<?= $term_slug ?>">
-                                    <?php if ($icon): ?>
-                                        <img src="<?= esc_url($icon) ?>" alt="<?= $term_name ?>" class="cp-filter-icon-img">
-                                    <?php endif; ?>
-                                    <span class="cp-filter-label"><?= $term_name ?></span>
+                                        <input type="radio" name="<?= esc_attr($taxo) ?>" value="<?= $term_slug ?>">
+                                        <?php if ($icon): ?>
+                                            <img src="<?= esc_url($icon) ?>" alt="<?= $term_name ?>" class="cp-filter-icon-img">
+                                        <?php endif; ?>
+                                        <span class="cp-filter-label"><?= $term_name ?></span>
 
-                                    <?php if ($taxo !== 'phase_projet'): ?>
+                                        <?php if ($taxo !== 'phase_projet'): ?>
                                         </div>
                                     <?php endif; ?>
                                 </label>
@@ -96,7 +97,7 @@ $projets = new WP_Query([
             $pays_dispo = ['philippines', 'france', 'suisse'];
             foreach ($pays_dispo as $p):
                 $is_active = ($p === $pays) ? ' active' : '';
-                ?>
+            ?>
                 <form method="get" class="cp-mini-carte-form">
                     <input type="hidden" name="pays" value="<?= esc_attr($p) ?>">
                     <button data-pays="<?= esc_attr($p) ?>" type="submit" class="cp-mini-carte-button<?= $is_active ?>">
@@ -114,26 +115,26 @@ $projets = new WP_Query([
     </div>
 
     <!-- COLONNE DROITE : carte SVG -->
-    <div class="subcontainer">
+    <div class="cp-map-center">
         <div id="carte-container">
             <div class="svg-wrapper">
                 <object id="carte-svg" type="image/svg+xml" data="<?= $svg_url ?>"></object>
-            </div>
+                <div id="project-popup">
+                    <button id="popup-close" style="position:absolute; top:5px; right:5px; border:none; background:none; font-size:16px; cursor:pointer;">×</button>
 
-            <div id="project-popup">
-                <button id="popup-close" style="position:absolute; top:5px; right:5px; border:none; background:none; font-size:16px; cursor:pointer;">×</button>
-
-                <div id="popup-icon"><img src="" alt=""></div>
-                <div id="popup-number"></div>
-                <div id="popup-title"></div>
-                <div id="popup-excerpt"></div>
-                <div id="popup-taxonomies">
-                    <div id="popup-phase"></div>
-                    <div id="popup-secteur"></div>
-                    <div id="popup-categorie"></div>
+                    <div id="popup-icon"><img src="" alt=""></div>
+                    <div id="popup-number"></div>
+                    <div id="popup-title"></div>
+                    <div id="popup-excerpt"></div>
+                    <div id="popup-taxonomies">
+                        <div id="popup-phase"></div>
+                        <div id="popup-secteur"></div>
+                        <div id="popup-categorie"></div>
+                    </div>
+                    <a id="popup-link" href="#" style="color:#d00; font-weight:bold;">Voir le projet</a>
                 </div>
-                <a id="popup-link" href="#" style="color:#d00; font-weight:bold;">Voir le projet</a>
             </div>
+
         </div>
     </div>
 </div>

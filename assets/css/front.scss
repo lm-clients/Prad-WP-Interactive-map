@@ -5,21 +5,25 @@
 @import '../scss/popup';
 
 #page-projets {
-  background-color: var(--color-bg);
-  padding: 7vh 0 7vh 5vw;
-  height: 90vh;
-  position: relative;
+    background-color: var(--color-bg);
+    display: grid;
+    grid-template-columns: 25% 50% 1fr;
+    gap: 2rem;
+    height: auto;
+    padding: 5vh 5vw;
+    flex-wrap: wrap;
+    min-height: 90vh;
 
-  img,
-  #carte-svg {
-    filter: invert(1);
-  }
+    img,
+    #carte-svg {
+        filter: invert(1);
+    }
 
-  #carte-svg {
-    width: auto;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
-  }
+    #carte-svg {
+        width: auto;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+    }
 }
