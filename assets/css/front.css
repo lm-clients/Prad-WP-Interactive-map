@@ -66,6 +66,12 @@
 #cp-filtres-avances > div[data-form-section][data-form-section=phase_projet] {
   grid-area: phase_projet;
 }
+#cp-filtres-avances > div[data-form-section][data-form-section=phase_projet] .cp-filter-group {
+  display: flex;
+  gap: 14px;
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
 #cp-filtres-avances > div[data-form-section][data-form-section=secteur_projet] {
   grid-area: secteur_projet;
 }
@@ -191,6 +197,50 @@
     margin-top: 1rem;
   }
 }
+.cp-project-slider {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cp-slider-point {
+  all: unset;
+}
+.cp-slider-point:hover, .cp-slider-point.active {
+  transform: translateX(50%);
+  background: var(--color-text);
+}
+.cp-slider-point:hover .cp-slider-point-title, .cp-slider-point.active .cp-slider-point-title {
+  display: flex;
+}
+.cp-slider-point-icon {
+  background-color: transparent;
+  border: 1px solid var(--color-text);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  width: 16px;
+  height: 12px;
+  position: relative;
+}
+.cp-slider-point-title {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  padding-right: 24px;
+  white-space: nowrap;
+  transform: translateX(-100%);
+  align-items: center;
+  color: #fff;
+}
+
 .cp-map-center {
   flex: 2 1 500px;
   position: relative;
@@ -352,7 +402,7 @@
 #page-projets {
   background-color: var(--color-bg);
   display: grid;
-  grid-template-columns: 25% 50% 1fr;
+  grid-template-columns: 25% 40% 1fr;
   gap: 2rem;
   height: auto;
   padding: 5vh 5vw;

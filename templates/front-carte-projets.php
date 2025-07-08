@@ -22,6 +22,14 @@ $projets = new WP_Query([
         ]
     ]
 ]);
+
+// Récupère TOUS les projets (pour le slider vertical)
+$all_projets = new WP_Query([
+    'post_type' => 'projet',
+    'posts_per_page' => -1,
+    'orderby' => 'date',
+    'order' => 'DESC',
+]);
 ?>
 
 <div id="page-projets">
@@ -128,7 +136,7 @@ $projets = new WP_Query([
             <div class="svg-wrapper">
                 <object id="carte-svg" type="image/svg+xml" data="<?= $svg_url ?>"></object>
                 <div id="project-popup">
-                    <button id="popup-close" style="position:absolute; top:5px; right:5px; border:none; background:none; font-size:16px; cursor:pointer;">×</button>
+                    <!-- <button id="popup-close" style="position:absolute; top:5px; right:5px; border:none; background:none; font-size:16px; cursor:pointer;">×</button> -->
 
                     <div id="popup-icon"><img src="" alt=""></div>
                     <div id="popup-number"></div>
@@ -143,6 +151,31 @@ $projets = new WP_Query([
                 </div>
             </div>
         </div>
+    </div>
+
+
+
+    <!-- SLIDER VERTICAL : tous les projets -->
+    <div class="cp-project-slider">
+        <?php if ($all_projets->have_posts()) : ?>
+            <?php while ($all_projets->have_posts()) : $all_projets->the_post();
+                $projet_id = get_the_ID();
+                $projet_pays = get_field('pays', $projet_id);
+            ?>
+                <button
+                    class="cp-slider-point"
+                    data-pays="<?= esc_attr($projet_pays); ?>"
+                    data-projet-id="<?= esc_attr($projet_id); ?>"
+                    title="<?= esc_attr(get_the_title()); ?>">
+                    <span class="cp-slider-point-title">
+                        <?= esc_html(get_the_title()); ?>
+                    </span>
+
+                    <div class="cp-slider-point-icon"></div>
+                </button>
+            <?php endwhile;
+            wp_reset_postdata(); ?>
+        <?php endif; ?>
     </div>
 </div>
 
