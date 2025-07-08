@@ -16,27 +16,27 @@ require_once CP_DIR . 'includes/taxonomies.php';
 require_once CP_DIR . 'includes/acf-fields.php';
 
 
-//Remove Divi Projects Post Type
-add_action('init', 'remove_divi_project_post_type');
-if (! function_exists('remove_divi_project_post_type')) {
-    function remove_divi_project_post_type()
-    {
-        unregister_post_type('project');
-        unregister_taxonomy('project_category');
-        unregister_taxonomy('project_tag');
-    }
-}
-add_filter('et_project_posttype_args', 'mytheme_et_project_posttype_args', 10, 1);
-function mytheme_et_project_posttype_args($args)
-{
-    return array_merge($args, array(
-        'public'              => false,
-        'exclude_from_search' => false,
-        'publicly_queryable'  => false,
-        'show_in_nav_menus'   => false,
-        'show_ui'             => false
-    ));
-}
+// //Remove Divi Projects Post Type
+// add_action('init', 'remove_divi_project_post_type');
+// if (! function_exists('remove_divi_project_post_type')) {
+//     function remove_divi_project_post_type()
+//     {
+//         unregister_post_type('project');
+//         unregister_taxonomy('project_category');
+//         unregister_taxonomy('project_tag');
+//     }
+// }
+// add_filter('et_project_posttype_args', 'mytheme_et_project_posttype_args', 10, 1);
+// function mytheme_et_project_posttype_args($args)
+// {
+//     return array_merge($args, array(
+//         'public'              => false,
+//         'exclude_from_search' => false,
+//         'publicly_queryable'  => false,
+//         'show_in_nav_menus'   => false,
+//         'show_ui'             => false
+//     ));
+// }
 
 
 
