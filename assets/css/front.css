@@ -79,7 +79,7 @@
   grid-area: categorie_projet;
 }
 #cp-filtres-avances .cp-filter-icon {
-  display: inline-block;
+  display: block;
   text-align: center;
   cursor: pointer;
   position: relative;
@@ -92,6 +92,7 @@
 #cp-filtres-avances .cp-filter-icon:hover .cp-filter-label {
   opacity: 1;
   color: var(--color-text);
+  white-space: nowrap;
 }
 #cp-filtres-avances .cp-filter-icon.active img,
 #cp-filtres-avances .cp-filter-icon.active .cp-filter-label,
@@ -243,9 +244,16 @@
 
 .cp-map-center {
   flex: 2 1 500px;
-  position: relative;
   min-height: 50vh;
   align-content: center;
+  position: absolute;
+  top: 30%;
+  left: 550px;
+  right: 25%;
+  width: 40%;
+}
+.cp-map-center[data-country=france] {
+  width: 35%;
 }
 
 #carte-container {
@@ -323,6 +331,12 @@
   z-index: 10;
   transform: translateX(10px);
 }
+#project-popup[data-country=suisse] {
+  left: 60%;
+}
+#project-popup[data-country=philippines] {
+  left: 80%;
+}
 #project-popup #popup-icon {
   position: absolute;
   top: 0;
@@ -342,6 +356,9 @@
   height: 24px;
   text-align: center;
   line-height: 24px;
+}
+#project-popup #popup-link:hover #popup-title {
+  color: var(--color-primary);
 }
 #project-popup #popup-title {
   font-weight: bold;
@@ -402,7 +419,7 @@
 #page-projets {
   background-color: var(--color-bg);
   display: grid;
-  grid-template-columns: 25% 40% 1fr;
+  grid-template-columns: 490px 40% 1fr;
   gap: 2rem;
   height: auto;
   padding: 5vh 5vw;

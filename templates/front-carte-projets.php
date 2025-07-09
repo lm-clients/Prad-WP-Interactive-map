@@ -140,14 +140,14 @@ $all_projets = new WP_Query([
 
                     <div id="popup-icon"><img src="" alt=""></div>
                     <div id="popup-number"></div>
-                    <div id="popup-title"></div>
+                    <a id="popup-link" href="#">
+                        <div id="popup-title"></div>
+                    </a>
                     <div id="popup-excerpt"></div>
                     <div id="popup-taxonomies">
-                        <div id="popup-phase"></div>
                         <div id="popup-secteur"></div>
                         <div id="popup-categorie"></div>
                     </div>
-                    <a id="popup-link" href="#" style="color:#d00; font-weight:bold;">Voir le projet</a>
                 </div>
             </div>
         </div>

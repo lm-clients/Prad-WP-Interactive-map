@@ -1,8 +1,19 @@
 .cp-map-center {
   flex: 2 1 500px; // grand écran : prend plus de place
-  position: relative;
+  // position: relative;
   min-height: 50vh;
   align-content: center;
+
+
+  position: absolute;
+  top: 30%;
+  left: 550px;
+  right: 25%;
+  width: 40%;
+
+  &[data-country="france"] {
+    width: 35%;
+  }
 }
 
 #carte-container {

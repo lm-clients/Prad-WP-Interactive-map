@@ -38,6 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function showPopup(projet, pointElement) {
     if (!popup) return;
 
+    const mapCenter = document.querySelector(".cp-map-center");
+    if (mapCenter) {
+      mapCenter.dataset.country = projet.country || currentPays;
+    }
+
     // Si on clique sur le même point → juste focus
     // if (activePoint === pointElement) return;
     if (activeProjetId === projet.id) return;
@@ -53,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Affiche le popup
     popup.style.display = "block";
+    popup.dataset.country = projet.country || currentPays;
     popup.querySelector("#popup-number").textContent = projet.numero || "•";
     popup.querySelector("#popup-title").textContent = projet.title;
     popup.querySelector("#popup-excerpt").textContent =
@@ -63,26 +69,34 @@ document.addEventListener("DOMContentLoaded", () => {
     icon.src = projet.phase_icon || "";
     icon.alt = projet.phase_name || "";
 
-    ["popup-phase", "popup-secteur", "popup-category"].forEach((id) => {
+    ["popup-phase", "popup-secteur", "popup-categorie"].forEach((id) => {
       const container = popup.querySelector(`#${id}`);
       container && (container.innerHTML = "");
     });
 
-    addMetadataPoint(popup.querySelector("#popup-phase"), projet.phase_name);
-    addMetadataPoint(
+    // addMetadataPoint(popup.querySelector("#popup-phase"), projet.phase_name);
+    addMetadataPoints(
       popup.querySelector("#popup-secteur"),
-      projet.secteur_name
+      projet.secteur_names || []
     );
-    addMetadataPoint(
-      popup.querySelector("#popup-category"),
-      projet.category_name
+    addMetadataPoints(
+      popup.querySelector("#popup-categorie"),
+      projet.categorie_names || []
     );
   }
 
-  function addMetadataPoint(container, label) {
-    if (!container || !label) return;
-    const bullet = `<div class="li-bullet"></div><span class="metadata-label">${label}</span>`;
-    container.insertAdjacentHTML("beforeend", bullet);
+  // function addMetadataPoint(container, label) {
+  //   if (!container || !label) return;
+  //   const bullet = `<div class="li-bullet"></div><span class="metadata-label">${label}</span>`;
+  //   container.insertAdjacentHTML("beforeend", bullet);
+  // }
+
+  function addMetadataPoints(container, labels) {
+    if (!container || !Array.isArray(labels) || labels.length === 0) return;
+    labels.forEach((label) => {
+      const bullet = `<div class="li-bullet"></div><span class="metadata-label">${label}</span>`;
+      container.insertAdjacentHTML("beforeend", bullet);
+    });
   }
 
   function loadPoints(pays, callback) {
@@ -213,7 +227,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".cp-mini-carte-form").forEach((miniForm) => {
     miniForm.addEventListener("submit", (e) => {
       e.preventDefault();
+      
       const pays = miniForm.querySelector('[name="pays"]').value;
+      const mapCenter = document.querySelector(".cp-map-center");
+      if (mapCenter) {
+        mapCenter.dataset.country = pays || currentPays;
+      }
 
       activeMiniCarteButton(pays);
       history.replaceState(null, "", "?pays=" + pays);
