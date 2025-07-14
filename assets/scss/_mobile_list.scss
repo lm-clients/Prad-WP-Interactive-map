@@ -1,0 +1,46 @@
+#cp-mobile-projects {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2vw;
+
+  @media screen and (min-width: 992px) {
+    display: none;
+  }
+
+  > li {
+    aspect-ratio: 3/2;
+    display: flex;
+    align-items: end;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.75;
+    }
+
+    // &:hover::before {
+    //     background-color: var(--color-primary);
+    //     opacity: 0.8;
+    // }
+
+    .cp-mobile-point-title {
+      padding: 0.5rem;
+    }
+
+    &::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0.8;
+      z-index: -1;
+    }
+  }
+}

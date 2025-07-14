@@ -142,6 +142,10 @@ function cp_get_projets()
             'title' => get_the_title(),
             'excerpt' => get_the_excerpt(),
             'link' => get_permalink(),
+
+            'image' => get_the_post_thumbnail_url(get_the_ID(), 'full') ?: '',
+            'image_alt' => get_post_meta(get_post_thumbnail_id(get_the_ID()), '_wp_attachment_image_alt', true) ?: '',
+
             'country' => get_field('pays') ?: '',
 
             'x' => get_field('x_position') ?: 0,

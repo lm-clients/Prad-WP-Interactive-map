@@ -235,6 +235,11 @@
   justify-content: center;
   gap: 8px;
 }
+@media (max-width: 992px) {
+  .cp-project-slider {
+    display: none;
+  }
+}
 
 .cp-slider-point {
   all: unset;
@@ -272,6 +277,16 @@
   min-height: 50vh;
   align-content: center;
 }
+@media screen and (max-width: 1600px) {
+  .cp-map-center {
+    align-content: flex-start;
+  }
+}
+@media screen and (max-width: 992px) {
+  .cp-map-center {
+    display: none;
+  }
+}
 
 #carte-container {
   position: relative;
@@ -279,6 +294,11 @@
   padding-top: 75%;
   /* ratio fixe pour responsive */
   background: transparent;
+}
+@media screen and (max-width: 1600px) {
+  #carte-container {
+    padding-top: 100%;
+  }
 }
 #carte-container .svg-wrapper {
   position: absolute;
@@ -331,7 +351,7 @@
 .svg-wrapper-mini .mini-points .point-projet-mini {
   position: absolute;
   transform: translate(-50%, -50%);
-  background-color: #DCAC53;
+  background-color: #dcac53;
   height: 6px;
   width: 7.5px;
 }
@@ -347,6 +367,11 @@
   color: var(--color-text);
   z-index: 10;
   transform: translateX(10px);
+}
+@media screen and (max-width: 1600px) {
+  #project-popup {
+    position: unset;
+  }
 }
 #project-popup[data-country=suisse] {
   left: 60%;
@@ -433,6 +458,45 @@
     width: 5%; /* un peu plus grand pour petits écrans */
   }
 }
+#cp-mobile-projects {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2vw;
+}
+@media screen and (min-width: 992px) {
+  #cp-mobile-projects {
+    display: none;
+  }
+}
+#cp-mobile-projects > li {
+  aspect-ratio: 3/2;
+  display: flex;
+  align-items: end;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  cursor: pointer;
+}
+#cp-mobile-projects > li:hover {
+  opacity: 0.75;
+}
+#cp-mobile-projects > li .cp-mobile-point-title {
+  padding: 0.5rem;
+}
+#cp-mobile-projects > li::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0.8;
+  z-index: -1;
+}
+
 #page-projets {
   background-color: var(--color-bg);
   display: grid;
@@ -447,17 +511,13 @@
   #page-projets {
     grid-template-columns: 1fr;
     padding: 2vh 2vw;
+    min-height: unset;
+  }
+  #page-projets .cp-mini-carte-group {
+    margin-top: 2vh;
   }
 }
 #page-projets img,
 #page-projets #carte-svg {
   filter: invert(1);
-}
-#page-projets #carte-svg {
-  width: auto;
-  height: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
-  display: block;
-  margin: 0 auto;
 }/*# sourceMappingURL=front.css.map */

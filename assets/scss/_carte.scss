@@ -4,6 +4,13 @@
   min-height: 50vh;
   align-content: center;
 
+  @media screen and (max-width: 1600px) {
+    align-content: flex-start;
+  }
+
+  @media screen and (max-width: 992px) {
+    display: none;
+  }
 
   // position: absolute;
   // // top: 30%;
@@ -23,6 +30,10 @@
   /* ratio fixe pour responsive */
   background: transparent;
 
+  @media screen and (max-width: 1600px) {
+    padding-top: 100%;
+  }
+
   .svg-wrapper {
     position: absolute;
     inset: 0;
@@ -33,6 +44,7 @@
   object#carte-svg {
     width: 100%;
     height: 100%;
+    // height: 50vh;
     display: block;
   }
 
@@ -59,10 +71,6 @@
   }
 }
 
-
-
-
-
 .svg-wrapper-mini {
   position: relative;
   width: 100%;
@@ -79,10 +87,9 @@
     .point-projet-mini {
       position: absolute;
       transform: translate(-50%, -50%);
-      background-color: #DCAC53;
+      background-color: #dcac53;
       height: 6px;
       width: 7.5px;
     }
-
   }
 }

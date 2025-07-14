@@ -272,6 +272,10 @@
 
   justify-content: center;
   gap: 8px;
+
+  @media (max-width: 992px) {
+    display: none;
+  }
 }
 
 .cp-slider-point {

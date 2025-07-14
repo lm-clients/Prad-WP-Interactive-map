@@ -3,6 +3,7 @@
 @import '../scss/filtres';
 @import '../scss/carte';
 @import '../scss/popup';
+@import '../scss/mobile_list';
 
 #page-projets {
     background-color: var(--color-bg);
@@ -22,7 +23,12 @@
 
     @media (max-width: 992px) {
         grid-template-columns: 1fr; 
-        padding: 2vh 2vw;
+        padding: 2vh 2vw;;
+        min-height: unset;
+
+        .cp-mini-carte-group {
+            margin-top: 2vh;
+        }
     }
 
 
@@ -31,11 +37,11 @@
         filter: invert(1);
     }
 
-    #carte-svg {
-        width: auto;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-        margin: 0 auto;
-    }
+    // #carte-svg {
+    //     width: auto;
+    //     height: 100%;
+    //     object-fit: contain;
+    //     display: block;
+    //     margin: 0 auto;
+    // }
 }

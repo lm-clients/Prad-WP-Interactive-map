@@ -107,6 +107,11 @@ document.addEventListener("DOMContentLoaded", () => {
       ...filters,
     });
 
+    const mobileList = document.getElementById("cp-mobile-projects");
+    if (mobileList) {
+      mobileList.innerHTML = "";
+    }
+
     fetch(`${CP_MAP_AJAX.ajax_url}?${query}`)
       .then((res) => res.json())
       .then((data) => {
@@ -140,6 +145,29 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
           container.appendChild(point);
+
+          // Ajouter dans la liste mobile
+          // créer un élément de liste
+          if (mobileList) {
+            // console.log("Ajout projet dans la liste mobile :", projet);
+            const listItem = document.createElement("li");
+            listItem.className = "cp-mobile-point";
+            listItem.dataset.pays = projet.country || pays;
+            listItem.dataset.projetId = projet.id;
+
+            listItem.style.backgroundImage = `url(${projet.image || ""})`;
+            listItem.style.backgroundSize = "cover";
+            listItem.style.backgroundPosition = "center center";
+
+            // listItem.textContent = projet.numero || "•";
+            listItem.innerHTML = `<span class="cp-mobile-point-title">${projet.title}</span>`;
+
+            listItem.addEventListener("click", (e) => {
+              e.stopPropagation(); // Empêche le document listener de fermer le popup
+              point.click(); // Simule le clic sur le point
+            });
+            mobileList.appendChild(listItem);
+          }
         });
 
         if (typeof callback === "function") callback();

@@ -186,6 +186,11 @@ $all_projets = new WP_Query([
             wp_reset_postdata(); ?>
         <?php endif; ?>
     </div>
+
+    <div class="mobile">
+        <ul id="cp-mobile-projects"></ul>
+    </div>
+
 </div>
 
 <?php get_footer(); ?>
