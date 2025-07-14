@@ -3,12 +3,29 @@
 // Shortcode pour le slider vertical des projets
 function cp_vertical_project_slider_shortcode()
 {
-    // Arguments pour la query
+    // On récupère l'ID du projet courant (si on est sur une page projet)
+    $current_project_id = get_the_ID();
+    $current_country = get_field('pays', $current_project_id);
+
+    // Si aucun pays n'est défini, on retourne un message
+    if (empty($current_country)) {
+        return '<p>Aucun pays associé à ce projet.</p>';
+    }
+
+    // Arguments pour la query : projets du même pays
     $args = [
         'post_type'      => 'projet',
         'posts_per_page' => -1,
         'orderby'        => 'date',
         'order'          => 'DESC',
+        'post__not_in'   => [$current_project_id], // exclut le projet courant
+        'meta_query'     => [
+            [
+                'key'     => 'pays', // champ ACF 'pays'
+                'value'   => $current_country,
+                'compare' => '=',
+            ],
+        ],
     ];
 
     $projects = new WP_Query($args);

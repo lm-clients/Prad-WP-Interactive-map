@@ -5,7 +5,7 @@ function projet_gallery_scroll_slider_shortcode($atts)
 {
     $photos = get_field('photos'); // Champ gallery (ACF Pro)
 
-    if (!$photos) return '<p>Aucune photo disponible.</p>';
+    if (!$photos) return '';
 
     ob_start(); ?>
     <div class="projet-gallery-wrapper">
@@ -47,7 +47,10 @@ function projet_gallery_scroll_slider_shortcode($atts)
             height: auto;
             display: block;
             object-fit: cover;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .swiper-wrapper {
+            align-items: center;
         }
 
         /* Flèches en dehors */
