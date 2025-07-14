@@ -84,7 +84,7 @@
 
 
 /* RESPONSIVE LAYOUT */
-@media (max-width: 1024px) {
+@media (max-width: var(--breakpoint-xl)) {
   #page-projets {
     flex-direction: column; // stacké en mobile
   }

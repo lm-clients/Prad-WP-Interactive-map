@@ -7,4 +7,13 @@
   --color-border: #333;
 
   --opacity-inactive: 0.4;
+
+
+  // responsive breakpoints
+  --breakpoint-xs: 320px; // mobile
+  --breakpoint-sm: 576px; // small devices
+  --breakpoint-md: 768px; // medium devices
+  --breakpoint-lg: 992px; // large devices
+  --breakpoint-xl: 1200px; // extra large devices
+  --breakpoint-xxl: 1400px; // extra extra large devices
 }

@@ -6,6 +6,12 @@
   --color-text: #fff;
   --color-border: #333;
   --opacity-inactive: 0.4;
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
 }
 
 .cp-filtres-wrapper {
@@ -23,7 +29,7 @@
 .cp-filtres-wrapper .cp-mini-carte-group {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  gap: 10px;
+  gap: 24px;
   align-items: baseline;
 }
 .cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form {
@@ -42,6 +48,12 @@
 .cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button.active .cp-mini-carte-label {
   color: var(--color-primary);
 }
+.cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button:hover {
+  opacity: 1;
+}
+.cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button:hover .cp-mini-carte-label {
+  color: var(--color-primary);
+}
 .cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button .cp-mini-carte {
   width: 100%;
   padding: 4px;
@@ -55,13 +67,16 @@
   font-weight: bold;
   padding-top: 5px;
 }
-.cp-filtres-wrapper .cp-mini-carte-group .cp-mini-carte-form .cp-mini-carte-button:hover .cp-mini-carte {
-  border-color: var(--color-border);
-}
 
 #cp-filtres-avances {
   display: grid;
   grid-template-areas: "phase_projet phase_projet" "secteur_projet categorie_projet";
+  gap: 14px;
+}
+@media screen and (max-width: 768px) {
+  #cp-filtres-avances {
+    grid-template-areas: "phase_projet" "secteur_projet" "categorie_projet";
+  }
 }
 #cp-filtres-avances > div[data-form-section][data-form-section=phase_projet] {
   grid-area: phase_projet;
@@ -71,6 +86,7 @@
   gap: 14px;
   margin-top: 14px;
   margin-bottom: 14px;
+  flex-wrap: wrap;
 }
 #cp-filtres-avances > div[data-form-section][data-form-section=secteur_projet] {
   grid-area: secteur_projet;
@@ -135,7 +151,7 @@
   border-right: none;
   padding: 10px 0;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
   background: none;
   color: var(--color-text);
@@ -143,20 +159,34 @@
   cursor: pointer;
   gap: 44px;
 }
-#toggle-filtres .cp-dropdown-icon-container {
+#toggle-filtres .mobile img {
+  filter: unset;
+}
+@media screen and (min-width: 992px) {
+  #toggle-filtres .mobile img {
+    display: none;
+  }
+}
+#toggle-filtres > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 44px;
+}
+#toggle-filtres > div .cp-dropdown-icon-container {
   width: 34px;
   display: flex;
   justify-content: end;
   align-items: center;
 }
-#toggle-filtres .cp-dropdown-icon-container .cp-dropdown-icon {
+#toggle-filtres > div .cp-dropdown-icon-container .cp-dropdown-icon {
   font-size: 1.5rem;
   transition: transform 0.3s ease;
   position: relative;
   z-index: 1;
   width: 34px;
 }
-#toggle-filtres .cp-dropdown-icon-container .cp-dropdown-icon:before {
+#toggle-filtres > div .cp-dropdown-icon-container .cp-dropdown-icon:before {
   content: "";
   width: 32px;
   height: 24px;
@@ -167,14 +197,14 @@
   background-color: var(--color-primary);
   z-index: -1;
 }
-#toggle-filtres[aria-expanded=true] .cp-dropdown-icon {
+#toggle-filtres > div[aria-expanded=true] .cp-dropdown-icon {
   width: 24px;
 }
-#toggle-filtres[aria-expanded=true] .cp-dropdown-icon > span {
+#toggle-filtres > div[aria-expanded=true] .cp-dropdown-icon > span {
   position: relative;
   top: -2px;
 }
-#toggle-filtres[aria-expanded=true] .cp-dropdown-icon:before {
+#toggle-filtres > div[aria-expanded=true] .cp-dropdown-icon:before {
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
@@ -199,14 +229,9 @@
   }
 }
 .cp-project-slider {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 40px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: end;
   justify-content: center;
   gap: 8px;
 }
@@ -246,14 +271,6 @@
   flex: 2 1 500px;
   min-height: 50vh;
   align-content: center;
-  position: absolute;
-  top: 30%;
-  left: 550px;
-  right: 25%;
-  width: 40%;
-}
-.cp-map-center[data-country=france] {
-  width: 35%;
 }
 
 #carte-container {
@@ -395,7 +412,7 @@
 }
 
 /* RESPONSIVE LAYOUT */
-@media (max-width: 1024px) {
+@media (max-width: var(--breakpoint-xl)) {
   #page-projets {
     flex-direction: column;
   }
@@ -419,12 +436,18 @@
 #page-projets {
   background-color: var(--color-bg);
   display: grid;
-  grid-template-columns: 490px 40% 1fr;
+  grid-template-columns: minmax(500px, 30%) 40% 1fr;
   gap: 2rem;
   height: auto;
   padding: 5vh 5vw;
   flex-wrap: wrap;
   min-height: 90vh;
+}
+@media (max-width: 992px) {
+  #page-projets {
+    grid-template-columns: 1fr;
+    padding: 2vh 2vw;
+  }
 }
 #page-projets img,
 #page-projets #carte-svg {

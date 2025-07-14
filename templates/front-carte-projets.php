@@ -38,12 +38,21 @@ $all_projets = new WP_Query([
         <!-- Bouton pour afficher les filtres en dropdown sur mobile -->
         <div>
             <button id="toggle-filtres" aria-expanded="false" class="cp-dropdown-toggle">
-                <span>Filtres</span>
-                <span class="cp-dropdown-icon-container">
-                    <span class="cp-dropdown-icon">
-                        <span>+</span>
-                    </span>
+                <span class="mobile">
+                    <?php
+                    $image_url = plugins_url('../assets/img/Prad-Architecture-Logo-Filter.png', __FILE__);
+                    ?>
+                    <img src="<?= esc_url($image_url); ?>" alt="Logo" class="cp-logo-mobile">
                 </span>
+
+                <div>
+                    <span>Filtres</span>
+                    <span class="cp-dropdown-icon-container">
+                        <span class="cp-dropdown-icon">
+                            <span>+</span>
+                        </span>
+                    </span>
+                </div>
             </button>
             <div id="cp-filtres-avances-container" class="cp-filtres-avances">
                 <form id="cp-filtres-avances">
