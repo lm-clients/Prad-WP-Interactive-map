@@ -11,16 +11,24 @@
   transform: translateX(10px);
 
   @media screen and (max-width: 1600px) {
-    position: unset;
+    // position: unset;
+    // left: 0 !important;
+    // top: 110%;
+    // max-width: 400px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #4b4c53;
+    padding: 24px;
+    box-shadow: 0px 0px 4px rgb(67 69 81);
   }
 
-
-
-  &[data-country=suisse] {
+  &[data-country="suisse"] {
     left: 60%;
   }
 
-  &[data-country=philippines] {
+  &[data-country="philippines"] {
     left: 80%;
   }
 
@@ -28,6 +36,11 @@
     position: absolute;
     top: 0;
     right: 0;
+
+    @media screen and (max-width: 1600px) {
+      top: 24px;
+      right: 24px;
+    }
 
     img {
       max-height: 50px;
@@ -67,9 +80,13 @@
   }
 
   #popup-taxonomies {
-    @include flex-vertical-center(row, 18px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 18px;
+    flex-wrap: wrap;
 
-    >div {
+    > div {
       @include flex-center(row, 10px);
 
       .li-bullet {
@@ -84,10 +101,6 @@
     }
   }
 }
-
-
-
-
 
 /* RESPONSIVE LAYOUT */
 @media (max-width: var(--breakpoint-xl)) {

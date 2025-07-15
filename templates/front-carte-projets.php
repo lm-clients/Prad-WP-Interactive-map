@@ -27,8 +27,8 @@ $projets = new WP_Query([
 $all_projets = new WP_Query([
     'post_type' => 'projet',
     'posts_per_page' => -1,
-    'orderby' => 'date',
-    'order' => 'DESC',
+    'orderby' => 'title',
+    'order' => 'ASC',
 ]);
 ?>
 
@@ -187,7 +187,7 @@ $all_projets = new WP_Query([
         <?php endif; ?>
     </div>
 
-    <div class="mobile">
+    <div class="mobile cp-mobile-list">
         <ul id="cp-mobile-projects"></ul>
     </div>
 

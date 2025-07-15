@@ -75,7 +75,7 @@ add_action('acf/init', function () {
 
         acf_add_local_field_group([
             'key' => 'group_project_photos',
-            'title' => '4. Photos du projet',
+            'title' => '3. Photos du projet',
             'fields' => [
                 [
                     'key' => 'field_photos_gallery',

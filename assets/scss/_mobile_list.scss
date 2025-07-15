@@ -43,4 +43,31 @@
       z-index: -1;
     }
   }
+
+  .loading-spinner {
+    animation: loading-spinner 3s linear infinite;
+    border: 2px dashed var(--color-primary);
+    border-radius: 50%;
+    aspect-ratio: 1;
+    width: 24px;
+    margin: auto;
+  }
+
+  // loading-spinner animation
+  @keyframes loading-spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+
+  .no-results {
+    text-align: center;
+    color: var(--color-text);
+    font-size: 1.2rem;
+    padding: 2rem;
+  }
 }
