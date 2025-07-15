@@ -399,8 +399,8 @@
 @media screen and (max-width: 1600px) {
   #project-popup {
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 50% !important;
+    left: 50% !important;
     transform: translate(-50%, -50%);
     background: #4b4c53;
     padding: 24px;
