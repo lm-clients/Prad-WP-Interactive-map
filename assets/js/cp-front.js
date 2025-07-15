@@ -338,18 +338,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const projetId = point.dataset.projetId;
 
         // === RESET FORM ===
-        if (form) {
-          form.reset(); // Réinitialise les valeurs du formulaire
-          // Réactive les boutons "Tous"
-          form
-            .querySelectorAll(".cp-filter-icon.active")
-            .forEach((el) => el.classList.remove("active"));
-          form
-            .querySelectorAll("#cp-filtres-avances-container > * > * > label")
-            .forEach((group) => {
-              group?.classList.add("active");
-            });
-        }
+        // if (form) {
+        //   form.reset(); // Réinitialise les valeurs du formulaire
+        //   // Réactive les boutons "Tous"
+        //   form
+        //     .querySelectorAll(".cp-filter-icon.active")
+        //     .forEach((el) => el.classList.remove("active"));
+        //   form
+        //     .querySelectorAll("#cp-filtres-avances-container > * > * > label")
+        //     .forEach((group) => {
+        //       group?.classList.add("active");
+        //     });
+        // }
 
         if (currentPays !== pays) {
           replaceCarte(pays, () => focusOnProjet(projetId));
