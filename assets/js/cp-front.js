@@ -59,8 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Affiche le popup
     popup.style.display = "block";
     popup.dataset.country = projet.country || currentPays;
-    popup.querySelector("#popup-number").textContent = projet.numero || "•";
-    popup.querySelector("#popup-title").textContent = projet.title;
+    popup.querySelector("#popup-number").textContent = projet.numero || "";
+    popup.querySelector("#popup-title").innerHTML = projet.title;
     popup.querySelector("#popup-excerpt").textContent =
       projet.popup_excerpt || "";
     popup.querySelector("#popup-link").href = projet.link;
