@@ -300,12 +300,6 @@
   color: #fff;
 }
 
-@media screen and (max-width: 1600px) {
-  #page-projets .cp-project-slider {
-    justify-content: flex-start;
-  }
-}
-
 .cp-map-center {
   flex: 2 1 500px;
   min-height: 50vh;
