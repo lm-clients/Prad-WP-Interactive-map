@@ -99,7 +99,7 @@ $all_projets = new WP_Query([
                                                     <div class="see-all-checkbox"></div>
                                                 <?php endif; ?>
                                                 <input type="radio" name="<?= esc_attr($taxo) ?>" value="<?= $term_slug ?>">
-                                                <?php if ($icon): ?>
+                                                <?php if ($icon && $taxo === 'phase_projet'): ?>
                                                     <img src="<?= esc_url($icon) ?>" alt="<?= $term_name ?>" class="cp-filter-icon-img">
                                                 <?php endif; ?>
                                                 <span class="cp-filter-label"><?= $term_name ?></span>

@@ -13,7 +13,7 @@ function cp_single_project_accordion_shortcode($atts)
     <div class="cp-accordion">
         <div class="cp-accordion-item">
             <button class="cp-accordion-header">
-                <span class="cp-accordion-title"><?= esc_html($projet_title); ?></span>
+                <h1 class="cp-accordion-title"><?= esc_html($projet_title); ?></h1>
                 <span class="cp-accordion-toggle">
                     <span class="cp-rectangle">+</span>
                 </span>
@@ -96,7 +96,7 @@ function cp_single_project_accordion_shortcode($atts)
 
             background: transparent;
 
-            padding: 12px 16px;
+            padding: 12px 0;
             width: 100%;
             display: flex;
             justify-content: space-between;
@@ -202,6 +202,7 @@ function cp_single_project_accordion_shortcode($atts)
             flex-grow: 1;
             margin-right: 10px;
             color: #fff;
+            font-size: 1rem;
         }
 
 
