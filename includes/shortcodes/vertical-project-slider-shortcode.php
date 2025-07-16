@@ -16,8 +16,8 @@ function cp_vertical_project_slider_shortcode()
     $args = [
         'post_type'      => 'projet',
         'posts_per_page' => -1,
-        'orderby'        => 'date',
-        'order'          => 'DESC',
+        'orderby'        => 'name',
+        'order'          => 'ASC',
         'post__not_in'   => [$current_project_id], // exclut le projet courant
         'meta_query'     => [
             [
