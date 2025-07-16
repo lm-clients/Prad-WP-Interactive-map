@@ -217,9 +217,9 @@ function cp_single_project_accordion_shortcode($atts)
             display: flex;
             flex-direction: column;
             justify-content: center;
-                align-items: center;
-            }
-            
+            align-items: center;
+        }
+
         .cp-taxo-secteur.cp-taxo-item {
             align-items: start;
         }
@@ -229,6 +229,7 @@ function cp_single_project_accordion_shortcode($atts)
             height: 44px;
             margin-bottom: 4px;
             object-fit: contain;
+            filter: invert(1);
         }
     </style>
 
