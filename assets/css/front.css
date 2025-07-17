@@ -129,6 +129,20 @@
   cursor: pointer;
   position: relative;
 }
+#cp-filtres-avances .cp-filter-icon.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+#cp-filtres-avances .cp-filter-icon.disabled * {
+  cursor: not-allowed;
+}
+#cp-filtres-avances .cp-filter-icon.disabled img {
+  opacity: 0.5;
+}
+#cp-filtres-avances .cp-filter-icon.disabled .cp-filter-label {
+  opacity: 0.5;
+}
 #cp-filtres-avances .cp-filter-icon img {
   transition: opacity 0.3s ease;
 }
@@ -269,15 +283,19 @@
     margin-top: 1rem;
   }
 }
-.cp-project-slider {
+.cp-project-slider-wrapper {
+  z-index: 10;
+}
+.cp-project-slider-wrapper .cp-project-slider-scroll .cp-project-slider {
   display: flex;
   flex-direction: column;
   align-items: end;
   justify-content: center;
   gap: 8px;
+  z-index: 10;
 }
 @media (max-width: 992px) {
-  .cp-project-slider {
+  .cp-project-slider-wrapper .cp-project-slider-scroll .cp-project-slider {
     display: none;
   }
 }
@@ -338,7 +356,7 @@
 }
 @media screen and (max-width: 1600px) {
   #carte-container {
-    padding-top: 100%;
+    padding-top: 65%;
   }
 }
 #carte-container .svg-wrapper {
@@ -369,11 +387,18 @@
   width: 32px;
   height: 24px;
   line-height: 24px;
+  transition: all 0.3s ease;
+  transform-origin: center;
 }
 @media (hover: none) {
   #carte-container .point-projet {
     font-size: clamp(14px, 2vw, 16px);
   }
+}
+#carte-container .point-projet.active {
+  scale: 1.4;
+  z-index: 10;
+  transition: all 0.3s ease;
 }
 
 .svg-wrapper-mini {
@@ -411,13 +436,10 @@
 }
 @media screen and (max-width: 1600px) {
   #project-popup {
-    position: fixed;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%);
-    background: #4b4c53;
-    padding: 24px;
-    box-shadow: 0px 0px 4px rgb(67, 69, 81);
+    top: 100%;
+    left: 0 !important;
+    width: 200%;
+    transform: translate(-10%, 25%);
   }
 }
 #project-popup[data-country=suisse] {
@@ -510,7 +532,8 @@
     grid-template-columns: repeat(2, 1fr);
   }
   .point-projet {
-    width: 5%; /* un peu plus grand pour petits écrans */
+    width: 5%;
+    /* un peu plus grand pour petits écrans */
   }
 }
 #cp-mobile-projects {

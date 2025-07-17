@@ -15,13 +15,19 @@
     // left: 0 !important;
     // top: 110%;
     // max-width: 400px;
-    position: fixed;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%);
-    background: #4b4c53;
-    padding: 24px;
-    box-shadow: 0px 0px 4px rgb(67 69 81);
+
+    // position: fixed;
+    // top: 50% !important;
+    // left: 50% !important;
+    // transform: translate(-50%, -50%);
+    // background: #4b4c53;
+    // padding: 24px;
+    // box-shadow: 0px 0px 4px rgb(67 69 81);
+
+    top: 100%;
+    left: 0 !important;
+    width: 200%;
+    transform: translate(-10%, 25%);
   }
 
   &[data-country="suisse"] {
@@ -86,7 +92,7 @@
     column-gap: 18px;
     flex-wrap: wrap;
 
-    > div {
+    >div {
       @include flex-center(row, 10px);
 
       .li-bullet {
@@ -125,6 +131,7 @@
   }
 
   .point-projet {
-    width: 5%; /* un peu plus grand pour petits écrans */
+    width: 5%;
+    /* un peu plus grand pour petits écrans */
   }
 }

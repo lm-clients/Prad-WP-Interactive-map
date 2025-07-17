@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "cp-filtres-avances-container"
   );
   const resetBtn = document.getElementById("reset-filtres");
+  let initialLoad = true;
 
   if (!container || !carte || typeof CP_MAP_AJAX === "undefined") return;
 
@@ -96,6 +97,79 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  function disableFiltersElements(projets) {
+    if (!form || !Array.isArray(projets) || projets.length === 0) return;
+
+    // Récupère tous les inputs radio
+    const inputs = form.querySelectorAll(
+      'input[type="radio"]:not(.cp-filter-all)'
+    );
+
+    // Récupère les valeurs présentes dans les projets
+    const values = projets.reduce(
+      (acc, projet) => {
+        if (projet.phase_name) acc.phase_projet.add(slugify(projet.phase_name));
+        if (projet.secteur_names)
+          projet.secteur_names.forEach((v) =>
+            acc.secteur_projet.add(slugify(v))
+          );
+        if (projet.categorie_names)
+          projet.categorie_names.forEach((v) =>
+            acc.categorie_projet.add(slugify(v))
+          );
+
+        return acc;
+      },
+      {
+        phase_projet: new Set(),
+        secteur_projet: new Set(),
+        categorie_projet: new Set(),
+      }
+    );
+
+    // Désactive les filtres absents
+    inputs.forEach((input) => {
+      const value = input.value;
+      const groupName = input.name;
+
+      console.log(
+        `Vérification pour ${groupName} avec valeur ${value}:`,
+        values[groupName],
+        !values.phase_projet.has(value)
+      );
+
+      let isDisabled = false;
+      if (groupName === "phase_projet") {
+        isDisabled = !values.phase_projet.has(value);
+      } else if (groupName === "secteur_projet") {
+        isDisabled = !values.secteur_projet.has(value);
+      } else if (groupName === "categorie_projet") {
+        isDisabled = !values.categorie_projet.has(value);
+      }
+
+      input.disabled = isDisabled;
+
+      if (isDisabled) {
+        input.closest(".cp-filter-icon")?.classList.add("disabled");
+        input.closest(".cp-filter-icon")?.classList.remove("active");
+      } else {
+        input.closest(".cp-filter-icon")?.classList.remove("disabled");
+      }
+    });
+  }
+  function slugify(text) {
+    return text
+      .toString()
+      .toLowerCase()
+      .normalize("NFD") // pour accents
+      .replace(/[\u0300-\u036f]/g, "") // accents
+      .replace(/\s+/g, "-") // espaces en tirets
+      .replace(/[^\w\-]+/g, "") // enlever caractères spéciaux
+      .replace(/\-\-+/g, "-") // plusieurs tirets
+      .replace(/^-+/, "") // trim -
+      .replace(/-+$/, ""); // trim -
+  }
+
   // function addMetadataPoint(container, label) {
   //   if (!container || !label) return;
   //   const bullet = `<div class="li-bullet"></div><span class="metadata-label">${label}</span>`;
@@ -139,6 +213,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (data.data.length === 0) {
           mobileList.style.display = "block";
           mobileList.innerHTML = `<div class="no-results">Aucun projet trouvé pour ces critères.</div>`;
+        }
+
+        // Désactive les filtres seulement au premier chargement ou changement de pays
+        if (initialLoad) {
+          disableFiltersElements(data.data);
+          initialLoad = false; // Plus besoin de le refaire après
         }
 
         // Clear existing points
@@ -256,6 +336,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadPoints(pays, callback);
     currentPays = pays;
+
+    // reset filtres
+    if (form) {
+      form.reset(); // Réinitialise les valeurs du formulaire
+      // Réactive les boutons "Tous"
+      form
+        .querySelectorAll(".cp-filter-icon.active")
+        .forEach((el) => el.classList.remove("active"));
+      form
+        .querySelectorAll("#cp-filtres-avances-container > * > * > label")
+        .forEach((group) => {
+          group?.classList.add("active");
+        });
+    }
+
+    // Charge les projets du nouveau pays
+    const query = new URLSearchParams({
+      action: "cp_get_projets",
+      pays,
+    });
+
+    fetch(`${CP_MAP_AJAX.ajax_url}?${query}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.success || !Array.isArray(data.data)) return;
+
+        // Désactive les filtres inutiles (uniquement au changement de pays)
+        disableFiltersElements(data.data);
+      })
+      .catch((err) => console.error("Erreur lors du chargement :", err));
   }
 
   function focusOnProjet(projetId) {

@@ -27,7 +27,7 @@ $projets = new WP_Query([
 $all_projets = new WP_Query([
     'post_type' => 'projet',
     'posts_per_page' => -1,
-    'orderby' => 'title',
+    'orderby' => 'numero_projet',
     'order' => 'ASC',
 ]);
 ?>
@@ -80,7 +80,7 @@ $all_projets = new WP_Query([
                     ?>
                         <div data-form-section="<?= esc_attr($taxo) ?>">
                             <label class="cp-filter-icon active">
-                                <input type="radio" name="<?= esc_attr($taxo) ?>" value="" checked>
+                                <input class="cp-filter-all" type="radio" name="<?= esc_attr($taxo) ?>" value="" checked>
                                 <div class="see-all">
                                     <div class="see-all-checkbox"></div>
                                     <span><?= esc_html($default_label) ?></span>
@@ -165,26 +165,29 @@ $all_projets = new WP_Query([
 
 
     <!-- SLIDER VERTICAL : tous les projets -->
-    <div class="cp-project-slider">
-        <?php if ($all_projets->have_posts()) : ?>
-            <?php while ($all_projets->have_posts()) : $all_projets->the_post();
-                $projet_id = get_the_ID();
-                $projet_pays = get_field('pays', $projet_id);
-            ?>
-                <button
-                    class="cp-slider-point"
-                    data-pays="<?= esc_attr($projet_pays); ?>"
-                    data-projet-id="<?= esc_attr($projet_id); ?>"
-                    title="<?= esc_attr(get_the_title()); ?>">
-                    <span class="cp-slider-point-title">
-                        <?= esc_html(get_the_title()); ?>
-                    </span>
-
-                    <div class="cp-slider-point-icon"></div>
-                </button>
-            <?php endwhile;
-            wp_reset_postdata(); ?>
-        <?php endif; ?>
+    <div class="cp-project-slider-wrapper">
+        <div class="cp-project-slider-scroll">
+            <div class="cp-project-slider">
+                <?php if ($all_projets->have_posts()) : ?>
+                    <?php while ($all_projets->have_posts()) : $all_projets->the_post();
+                        $projet_id = get_the_ID();
+                        $projet_pays = get_field('pays', $projet_id);
+                    ?>
+                        <button
+                            class="cp-slider-point"
+                            data-pays="<?= esc_attr($projet_pays); ?>"
+                            data-projet-id="<?= esc_attr($projet_id); ?>"
+                            title="<?= esc_attr(get_the_title()); ?>">
+                            <span class="cp-slider-point-title">
+                                <?= esc_html(get_the_title()); ?>
+                            </span>
+                            <div class="cp-slider-point-icon"></div>
+                        </button>
+                    <?php endwhile;
+                    wp_reset_postdata(); ?>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 
     <div class="mobile cp-mobile-list">
